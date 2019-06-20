@@ -35,14 +35,14 @@ make && make install
 #download conf(default port 1234)
 cd /data/nginx/conf
 rm -f nginx.conf
-wget https://raw.githubusercontent.com/fadexiii/conf/master/nginx.conf
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/nginx.conf
 
 if [ ! -d "/data/nginx/conf/vhost" ]; then
 	mkdir -p "/data/nginx/conf/vhost"
 fi
 
 cd /data/nginx/conf/vhost
-wget https://raw.githubusercontent.com/fadexiii/conf/master/www.conf
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/www.conf
 
 #auto-start
 echo /data/nginx/sbin/nginx >> /etc/rc.d/rc.local

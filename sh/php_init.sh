@@ -32,10 +32,10 @@ make && make install
 
 #download conf
 cd /data/php
-wget https://raw.githubusercontent.com/fadexiii/conf/master/php.ini
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/php.ini
 
 cd /data/php/etc
-wget https://raw.githubusercontent.com/fadexiii/conf/master/php-fpm.conf
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/php-fpm.cof
 
 #add to environment
 echo PATH=$PATH:/data/php/bin >> /etc/profile
