@@ -8,7 +8,7 @@ if [ ! -d "/data/sofe" ]; then
 fi
 
 #uninstall mariadb
-mdb=`rpm -qa|grep mariadb`
+mdb=`rpm -qa|grep mariadb|grep libs`
 if [ -n "$mdb" ]
 then
     mddArr=($mdb)
@@ -25,20 +25,28 @@ if [ ! -f "/data/sofe/mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz" ]; then
 	wget http://nginx.org/download/nginx-1.12.2.tar.gz
 fi
 if [ ! -d "/data/sofe/mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz" ]; then
-	tar -zxvf /data/sofe/mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz /usr/local
+	tar -zxvf /data/sofe/mysql-5.7.11-linux-glibc2.5-x86_64.tar.gz -C /usr/local/
 fi
 
 cd /usr/local
 mv mysql-5.7.11-linux-glibc2.5-x86_64 mysql
+
+groupadd mysql
+useradd -g mysql mysql -d /home/mysql
+#passwd mysql
 chown -R mysql:mysql mysql/
 
 cd /etc
 # 下载配置文件
-wget https://raw.githubusercontent.com/ZyxZhou/conf/master/nginx.conf
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/my.cnf
+cd /usr/local/mysql/bin
+
+#链接库文件
+#yum install  libaio-devel.x86_64
 ./mysqld --initialize --user=mysql
 
 # 复制启动脚本到资源目录
-cp ./support-files/mysql.server /etc/rc.d/init.d/mysqld
+cp ../support-files/mysql.server /etc/rc.d/init.d/mysqld
 
 # 增加mysqld服务控制脚本执行权限
 chmod +x /etc/rc.d/init.d/mysqld
@@ -47,7 +55,7 @@ chmod +x /etc/rc.d/init.d/mysqld
 chkconfig --add mysqld
 
 # 切换至mysql用户，启动mysql
-service root start
+service mysql start
 
 echo PATH=$PATH:/usr/local/mysql/bin >> /etc/profile
 source /etc/profile
