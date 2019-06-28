@@ -35,7 +35,7 @@ cd /data/php
 wget https://raw.githubusercontent.com/ZyxZhou/conf/master/php.ini
 
 cd /data/php/etc
-wget https://raw.githubusercontent.com/ZyxZhou/conf/master/php-fpm.cof
+wget https://raw.githubusercontent.com/ZyxZhou/conf/master/php-fpm.conf
 
 #add to environment
 echo PATH=$PATH:/data/php/bin >> /etc/profile
